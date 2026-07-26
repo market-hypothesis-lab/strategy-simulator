@@ -1,0 +1,19 @@
+{
+  "name": "fictional-demo-only",
+  "minimum_score": 2,
+  "rules": [
+    {
+      "metric": "feature_alpha",
+      "operator": ">=",
+      "threshold": "10",
+      "points": 2
+    },
+    {
+      "metric": "feature_beta",
+      "operator": "<",
+      "threshold": "5",
+      "points": 1
+    }
+  ]
+}
+

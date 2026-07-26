@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "strategy-simulator"
+version = "0.1.0"
+description = "Deterministic simulator for rule-based research hypotheses"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.setuptools.packages.find]
+include = ["strategy_simulator*"]
+
