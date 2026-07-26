@@ -1,0 +1,75 @@
+{
+  "synthetic": true,
+  "ticker": "TEST",
+  "company_name": "架空テクノロジー株式会社",
+  "events": [
+    {
+      "event_id": "event-01",
+      "event_type": "SIGNAL_TRIGGERED",
+      "strategy_id": "fictional-momentum-v1",
+      "signal_id": "signal-fictional-001",
+      "occurred_at": "2030-01-15T06:00:00Z",
+      "price": "1000"
+    },
+    {
+      "event_id": "event-02",
+      "event_type": "ENTRY_PENDING",
+      "strategy_id": "fictional-momentum-v1",
+      "signal_id": "signal-fictional-001",
+      "occurred_at": "2030-01-15T06:01:00Z",
+      "quantity": "100",
+      "reference_event_id": "event-01"
+    },
+    {
+      "event_id": "event-03",
+      "event_type": "ENTRY_FILLED",
+      "strategy_id": "fictional-momentum-v1",
+      "signal_id": "signal-fictional-001",
+      "occurred_at": "2030-01-16T00:00:00Z",
+      "quantity": "100",
+      "price": "1010.5",
+      "reference_event_id": "event-02"
+    },
+    {
+      "event_id": "event-04",
+      "event_type": "TAKE_PROFIT_TRIGGERED",
+      "strategy_id": "fictional-momentum-v1",
+      "signal_id": "signal-fictional-001",
+      "occurred_at": "2030-01-22T06:00:00Z",
+      "price": "1111.55",
+      "take_profit_stage": 1,
+      "reference_event_id": "event-03"
+    },
+    {
+      "event_id": "event-05",
+      "event_type": "POSITION_REDUCED",
+      "strategy_id": "fictional-momentum-v1",
+      "signal_id": "signal-fictional-001",
+      "occurred_at": "2030-01-23T00:00:00Z",
+      "quantity": "40",
+      "price": "1110",
+      "take_profit_stage": 1,
+      "reference_event_id": "event-04"
+    },
+    {
+      "event_id": "event-06",
+      "event_type": "STOP_TRIGGERED",
+      "strategy_id": "fictional-momentum-v1",
+      "signal_id": "signal-fictional-001",
+      "occurred_at": "2030-02-01T06:00:00Z",
+      "price": "970",
+      "reference_event_id": "event-05"
+    },
+    {
+      "event_id": "event-07",
+      "event_type": "POSITION_EXITED",
+      "strategy_id": "fictional-momentum-v1",
+      "signal_id": "signal-fictional-001",
+      "occurred_at": "2030-02-02T00:00:00Z",
+      "quantity": "60",
+      "price": "965.25",
+      "reason": "stop",
+      "reference_event_id": "event-06"
+    }
+  ]
+}
