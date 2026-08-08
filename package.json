@@ -1,0 +1,14 @@
+{
+  "name": "strategy-simulator-public-compute",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Dependency-free public market feature computation plane",
+  "type": "module",
+  "engines": {
+    "node": ">=20.12"
+  },
+  "scripts": {
+    "test:node": "node --test tests-js/auth.test.mjs tests-js/features.test.mjs tests-js/client.test.mjs tests-js/yahoo.test.mjs tests-js/workflow.test.mjs",
+    "scan": "node scripts/public-market-scan.mjs"
+  }
+}
