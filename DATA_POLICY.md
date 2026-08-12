@@ -44,5 +44,11 @@ When reproducibility requires external source material, prefer a lawful locator,
 retrieval timestamp, and SHA-256 digest in private storage over storing the
 source document here.
 
+The source-audit workflow may persist a provenance manifest containing only an
+immutable locator, retrieval time, byte count, license label, and SHA-256. It
+must not persist the inspected source body. A source that is stale, missing,
+oversized, schema-incompatible, or lacks its required digest is rejected and
+must never be silently substituted into a trading signal.
+
 Everything under `examples/` and `tests-js/fixtures/` is fictional and exists
 only to demonstrate and test the public interfaces.

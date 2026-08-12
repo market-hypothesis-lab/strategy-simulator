@@ -1,0 +1,35 @@
+name: Public upstream source audit
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: public-upstream-source-audit
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "22"
+      - name: Audit allowlisted upstreams
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: npm run audit:sources
+      - name: Upload provenance manifest only
+        uses: actions/upload-artifact@65c4c4a1ddee5b72f698fdd19549f0f0fb45cf08 # v4.6.0
+        with:
+          name: public-source-audit-${{ github.run_id }}-${{ github.run_attempt }}
+          path: runtime/public-source-audit.json
+          if-no-files-found: error
+          retention-days: 30

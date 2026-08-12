@@ -4,6 +4,7 @@ import test from "node:test";
 
 const WORKFLOW_PATH = new URL("../.github/workflows/public-market-scan.yml", import.meta.url);
 const CI_WORKFLOW_PATH = new URL("../.github/workflows/ci.yml", import.meta.url);
+const SOURCE_AUDIT_WORKFLOW_PATH = new URL("../.github/workflows/public-source-audit.yml", import.meta.url);
 
 test("public scan workflow is dispatch-only, least-privilege, and payload-free", async () => {
   const workflow = await readFile(WORKFLOW_PATH, "utf8");
@@ -38,4 +39,17 @@ test("CI avoids duplicate feature-branch runs and cancels obsolete attempts", as
   assert.match(workflow, /^  pull_request:\s*$/m);
   assert.match(workflow, /group: ci-\$\{\{ github\.event\.pull_request\.number \|\| github\.ref \}\}/);
   assert.match(workflow, /cancel-in-progress: true/);
+});
+
+test("source audit is dispatch-only and uploads only the provenance manifest", async () => {
+  const workflow = await readFile(SOURCE_AUDIT_WORKFLOW_PATH, "utf8");
+  assert.match(workflow, /^on:\r?\n  workflow_dispatch:\s*$/m);
+  assert.doesNotMatch(workflow, /^\s+schedule:/m);
+  assert.match(workflow, /^permissions:\r?\n  contents: read$/m);
+  assert.match(workflow, /if: github\.ref == 'refs\/heads\/main'/);
+  assert.match(workflow, /persist-credentials: false/);
+  assert.match(workflow, /path: runtime\/public-source-audit\.json/);
+  assert.doesNotMatch(workflow, /\.parquet|members\.csv|market-data/);
+  const actionReferences = [...workflow.matchAll(/uses:\s+[^@\s]+@([^\s#]+)/g)].map((match) => match[1]);
+  assert.ok(actionReferences.every((revision) => /^[a-f0-9]{40}$/.test(revision)));
 });

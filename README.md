@@ -164,6 +164,27 @@ Do not copy live strategy configuration, unpublished results, real positions,
 licensed market data, credentials, ticker allowlists, or webhook URLs into this
 repository. See [DATA_POLICY.md](DATA_POLICY.md) for the complete boundary.
 
+## Audited public data sources
+
+`public-source-audit.yml` is a dispatch-only provenance check. It resolves each
+allowlisted GitHub source to an immutable commit or release asset, enforces age
+and size limits, validates a minimal schema, and publishes only a SHA-256
+manifest. The source body is never uploaded or committed.
+
+The initial adopted source is `fja05680/sp500`'s MIT-licensed historical S&P
+500 component file. It is used only to reduce current-constituent survivorship
+bias in US backtests. It is not an official S&P feed and is not sufficient for
+a trading signal by itself. `irachex/open-stock-data` was evaluated but not
+adopted because its documented US release tag was unavailable through the
+GitHub Releases API during the 2026-08-13 audit. Its unadjusted prices would
+also require independently verified corporate-action adjustment.
+
+Run the audit locally with:
+
+```powershell
+npm run audit:sources
+```
+
 ## License status
 
 No open-source license has been selected yet. Public visibility permits reading

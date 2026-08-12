@@ -8,7 +8,8 @@
     "node": ">=20.12"
   },
   "scripts": {
-    "test:node": "node --test tests-js/auth.test.mjs tests-js/features.test.mjs tests-js/client.test.mjs tests-js/yahoo.test.mjs tests-js/workflow.test.mjs",
-    "scan": "node scripts/public-market-scan.mjs"
+    "test:node": "node --test tests-js/auth.test.mjs tests-js/features.test.mjs tests-js/client.test.mjs tests-js/yahoo.test.mjs tests-js/workflow.test.mjs tests-js/source-audit.test.mjs",
+    "scan": "node scripts/public-market-scan.mjs",
+    "audit:sources": "node scripts/audit-public-data-sources.mjs"
   }
 }
