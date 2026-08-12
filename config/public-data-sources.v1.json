@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "public-data-sources.v1",
+  "sources": [
+    {
+      "sourceId": "sp500-point-in-time-components-v1",
+      "kind": "github_repository_file",
+      "repository": "fja05680/sp500",
+      "ref": "master",
+      "path": "S&P 500 Historical Components & Changes (Updated).csv",
+      "license": "MIT",
+      "maximumAgeHours": 2160,
+      "minimumBytes": 10000,
+      "maximumBytes": 20000000,
+      "requiredHeader": "date,tickers",
+      "usage": "backtest_universe_bias_control"
+    }
+  ]
+}
