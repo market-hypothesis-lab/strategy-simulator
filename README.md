@@ -31,6 +31,16 @@ workflows after 60 days without repository activity therefore does not apply to
 this workflow. Daily automation must keep dispatching it from the private
 control plane.
 
+The private control plane accepts a snapshot as a daily input only after exact
+ticker coverage and same-market-date validation. Its first history bootstrap
+remains private and Yahoo-based; after parity approval, the private daily job
+can append the current close from this snapshot and skip the full 225-code
+Yahoo acquisition. A failed, stale, partial, or schema-incompatible snapshot
+is never used as a partial result: the private workflow falls back to its
+existing Yahoo path before mutating state. This repository owns transient
+market computation, while the private repository owns thresholds, state,
+lifecycle decisions, Discord, and the member dashboard.
+
 ## GitHub Actions configuration
 
 Create a `public-scan-production` GitHub Environment, restrict its deployment
