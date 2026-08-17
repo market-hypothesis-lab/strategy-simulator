@@ -18,7 +18,7 @@ test("public scan workflow is dispatch-only, least-privilege, and payload-free",
   assert.match(workflow, /^permissions:\r?\n  contents: read$/m);
   assert.match(workflow, /persist-credentials: false/);
   assert.match(workflow, /runs-on: ubuntu-latest/);
-  assert.match(workflow, /if: github\.ref == 'refs\/heads\/main'/);
+  assert.match(workflow, /if: >-\r?\n\s+github\.ref == 'refs\\/heads\\/main'/);
   assert.match(workflow, /environment: public-scan-production/);
   assert.doesNotMatch(workflow, /upload-artifact|save-state|GITHUB_OUTPUT/);
 
