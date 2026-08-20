@@ -9,13 +9,16 @@ const SOURCE_AUDIT_WORKFLOW_PATH = new URL("../.github/workflows/public-source-a
 test("public scan workflow is dispatch-only, least-privilege, and payload-free", async () => {
   const workflow = await readFile(WORKFLOW_PATH, "utf8");
 
-  assert.match(workflow, /^on:\r?\n  workflow_dispatch:\s*$/m);
+  assert.match(workflow, /^on:\r?\n  workflow_dispatch:\r?\n  repository_dispatch:\r?\n    types:\r?\n      - public-scan\s*$/m);
   assert.doesNotMatch(workflow, /^\s+schedule:/m);
-  assert.doesNotMatch(workflow, /^\s+(push|pull_request|workflow_call):/m);
+  assert.doesNotMatch(workflow, /^\s+(schedule|push|pull_request|workflow_call):/m);
+  assert.match(workflow, /github\.event_name == 'workflow_dispatch'/);
+  assert.match(workflow, /github\.event_name == 'repository_dispatch'/);
+  assert.doesNotMatch(workflow, /client_payload/);
   assert.match(workflow, /^permissions:\r?\n  contents: read$/m);
   assert.match(workflow, /persist-credentials: false/);
   assert.match(workflow, /runs-on: ubuntu-latest/);
-  assert.match(workflow, /if: github\.ref == 'refs\/heads\/main'/);
+  assert.match(workflow, /if: >-\r?\n\s+github\.ref == 'refs\/heads\/main'/);
   assert.match(workflow, /environment: public-scan-production/);
   assert.doesNotMatch(workflow, /upload-artifact|save-state|GITHUB_OUTPUT/);
 
